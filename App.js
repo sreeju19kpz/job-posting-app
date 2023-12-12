@@ -1,10 +1,14 @@
+import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { styles } from "./StyleSheet";
+import BottomPanel from "./components/BottomPanel/BottomPanel";
+import AllJobs from "./components/jobs/AllJobs";
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <View style={[styles.flex1, styles.posRel]}>
+      <AllJobs />
+      <BottomPanel />
       <StatusBar style="auto" />
     </View>
   );
