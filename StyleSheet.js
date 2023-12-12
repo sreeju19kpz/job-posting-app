@@ -26,6 +26,9 @@ export const styles = StyleSheet.create({
   lef0: {
     left: 0,
   },
+  rig0: {
+    right: 0,
+  },
   posRel: {
     position: "relative",
   },
@@ -43,9 +46,19 @@ export const styles = StyleSheet.create({
   fleGro1: {
     flexGrow: 1,
   },
-  aliIteCnt:{
-    alignItems:'center'
+  aliIteCnt: {
+    alignItems: "center",
   },
+  aliIteFleEnd: {
+    alignItems: "flex-end",
+  },
+  JusConFleEnd: {
+    justifyContent: "flex-end",
+  },
+  jusConCnt: {
+    justifyContent: "center",
+  },
+
   /* height */
   hei100p: {
     height: "100%",
@@ -53,7 +66,10 @@ export const styles = StyleSheet.create({
   hei100p: {
     height: "100%",
   },
-  hei50px: {
+  hei33: {
+    height: 33,
+  },
+  hei50: {
     height: 50,
   },
   hei150: {
@@ -64,6 +80,9 @@ export const styles = StyleSheet.create({
   },
 
   /* width */
+  wid25p: {
+    width: "25%",
+  },
   wid100p: {
     width: "100%",
   },
@@ -73,12 +92,20 @@ export const styles = StyleSheet.create({
   wid400: {
     width: 400,
   },
-  /* justify content */
-  JusConFleEnd: {
-    justifyContent: "flex-end",
+  wid100: {
+    width: 100,
   },
 
   /* padding */
+  padVer1: {
+    paddingVertical: 1,
+  },
+  padTop5: {
+    paddingTop: 10,
+  },
+  padHor4: {
+    paddingHorizontal: 8,
+  },
   pad10: {
     padding: 10,
   },
@@ -97,7 +124,8 @@ export const styles = StyleSheet.create({
   /* gap */
   gap5: {
     gap: 5,
-  }, gap10: {
+  },
+  gap10: {
     gap: 10,
   },
   gap20: {
@@ -105,22 +133,22 @@ export const styles = StyleSheet.create({
   },
 
   /* background color */
-  bac: {
-    backgroundColor: "red",
-  },
-  bac2: {
-    backgroundColor: "white",
-  },
-  bac3: {
-    backgroundColor: "blue",
+  bacColgreLig1: {
+    backgroundColor: "rgba(21, 21, 21, 0.12)",
   },
 
   /* font*/
   fonColBla: {
     color: "black",
   },
+  fonColIndBlu: {
+    color: "#3F00FF",
+  },
   fonColBlaLig1: {
     color: "rgba(0,0,0,.6)",
+  },
+  fonSiz12: {
+    fontSize: 12,
   },
   fonSiz15: {
     fontSize: 15,
@@ -134,5 +162,24 @@ export const styles = StyleSheet.create({
 
   fonWei900: {
     fontWeight: 900,
+  },
+  texAliCnt: {
+    textAlign: "center",
+  },
+  /* border */
+  borWid1: {
+    borderWidth: 1,
+  },
+  borTopWid1: {
+    borderTopWidth: 1,
+  },
+  borColBlaLig: {
+    borderColor: "rgba(0,0,0,.5)",
+  },
+  borColBlaLigP1: {
+    borderColor: "rgba(0,0,0,.1)",
+  },
+  borStySol: {
+    borderStyle: "solid",
   },
 });
