@@ -4,7 +4,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-export default Job = ({ item }) => {
+export default Internship = ({ item }) => {
   const navigation = useNavigation();
   return (
     <View style={[styles.wid100p, styles.maxWid400, { elevation: 100 }]}>
@@ -81,7 +81,7 @@ export default Job = ({ item }) => {
             ]}
           >
             <Fontisto name="inr" size={12} color="black" />
-            <Text style={[styles.fonSiz15]}>{item.salary}</Text>
+            <Text style={[styles.fonSiz15]}>{item.stipend}</Text>
           </View>
           <View style={[styles.flexDirRow, styles.gap10]}>
             {item.skills.map((item) => {

@@ -1,14 +1,17 @@
-import React, { Component } from "react";
-import { StatusBar } from "expo-status-bar";
-import { ScrollView, Text, View } from "react-native";
-import { styles } from "./StyleSheet";
-import BottomPanel from "./components/BottomPanel/BottomPanel";
+import React from "react";
+
 import AllJobs from "./components/jobs/AllJobs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Pressable, StatusBar } from "react-native";
+import { EvilIcons } from "@expo/vector-icons";
+import { styles } from "./StyleSheet";
+import JobsHome from "./components/jobs/JobsHome";
+import InternshipsHome from "./components/internships/InternshipsHome";
+import CommunityHome from "./components/community/CommunityHome";
 const Tab = createBottomTabNavigator();
 export default function App() {
   return (
@@ -22,25 +25,39 @@ export default function App() {
       >
         <Tab.Screen
           name="jobs"
-          component={AllJobs}
+          component={JobsHome}
           options={{
             tabBarIcon: ({ color }) => (
               <Entypo name="suitcase" size={20} color={color} />
             ),
+            headerRight: () => (
+              <Pressable style={[styles.padHor4]}>
+                <EvilIcons name="search" size={26} color="blue" />
+              </Pressable>
+            ),
+            headerTitleAlign: "left",
+            headerShown: false,
           }}
         />
         <Tab.Screen
           name="internships"
-          component={AllJobs}
+          component={InternshipsHome}
           options={{
             tabBarIcon: ({ color }) => (
               <Entypo name="paper-plane" size={24} color={color} />
             ),
+            headerRight: () => (
+              <Pressable style={[styles.padHor4]}>
+                <EvilIcons name="search" size={26} color="blue" />
+              </Pressable>
+            ),
+            headerTitleAlign: "left",
+            headerShown: false,
           }}
         />
         <Tab.Screen
           name="community"
-          component={AllJobs}
+          component={CommunityHome}
           options={{
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
@@ -48,6 +65,11 @@ export default function App() {
                 size={24}
                 color={color}
               />
+            ),
+            headerRight: () => (
+              <Pressable style={[styles.padHor4]}>
+                <EvilIcons name="search" size={26} color="blue" />
+              </Pressable>
             ),
           }}
         />
@@ -61,6 +83,11 @@ export default function App() {
           }}
         />
       </Tab.Navigator>
+      <StatusBar
+        style="auto"
+        barStyle="light-content"
+        backgroundColor="#1F51FF"
+      />
     </NavigationContainer>
   );
 }
@@ -69,6 +96,6 @@ export default function App() {
   /* <View style={[styles.flex1, styles.posRel]}>
 <AllJobs />
 
-<StatusBar style="auto" />
+
 </View> */
 }

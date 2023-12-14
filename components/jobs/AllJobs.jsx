@@ -1,10 +1,11 @@
 import { Platform, ScrollView, StatusBar, Text, View } from "react-native";
-import useFetchAllJobs from "../api/FetchAllProducts";
 import { styles } from "../../StyleSheet";
 import Job from "./Job";
 
+import useFetchData from "../api/FetchData";
+
 export default AllJobs = () => {
-  const { loading, faliled, data } = useFetchAllJobs();
+  const { loading, faliled, data } = useFetchData({ url: "jobs/all" });
   if (loading) return <View></View>;
   if (faliled) return <View></View>;
   return (
@@ -20,7 +21,7 @@ export default AllJobs = () => {
     >
       <View style={[styles.wid100p, styles.gap20]}>
         {data &&
-          data.allJobs.map((item) => {
+          data.allJobs.map((item, index) => {
             return <Job item={item} key={item._id} />;
           })}
       </View>

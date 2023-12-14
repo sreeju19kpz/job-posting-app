@@ -58,6 +58,9 @@ export const styles = StyleSheet.create({
   jusConCnt: {
     justifyContent: "center",
   },
+  jusConSpcAro: {
+    justifyContent:'space-around',
+  },
 
   /* height */
   hei100p: {
@@ -71,6 +74,9 @@ export const styles = StyleSheet.create({
   },
   hei50: {
     height: 50,
+  },
+  hei70: {
+    height: 80,
   },
   hei150: {
     height: 150,
@@ -91,6 +97,12 @@ export const styles = StyleSheet.create({
   },
   wid400: {
     width: 400,
+  },
+  wid50: {
+    width: 50,
+  },
+  wid70: {
+    width: 70,
   },
   wid100: {
     width: 100,
@@ -163,15 +175,22 @@ export const styles = StyleSheet.create({
   fonWei900: {
     fontWeight: 900,
   },
+  fonWei700: {
+    fontWeight: 700,
+  },
   texAliCnt: {
     textAlign: "center",
   },
+
   /* border */
   borWid1: {
     borderWidth: 1,
   },
   borTopWid1: {
     borderTopWidth: 1,
+  },
+  borBotWid1: {
+    borderBottomWidth: 1,
   },
   borColBlaLig: {
     borderColor: "rgba(0,0,0,.5)",
@@ -181,5 +200,20 @@ export const styles = StyleSheet.create({
   },
   borStySol: {
     borderStyle: "solid",
+  },
+  borRad10: { borderRadius: 10 },
+  /* margin */
+  marTop5: {
+    marginTop: 5,
+  },
+  marTop20: {
+    marginTop: 20,
+  },
+  marBot20: {
+    marginBottom: 20,
+  },
+  /* object */
+  objFitCov: {
+    objectFit: "cover",
   },
 });
