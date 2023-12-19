@@ -21,7 +21,7 @@ const useFetchData = ({ url }) => {
       }
     };
     fetchData();
-  }, []);
+  }, [url]);
 
   return { loading, faliled, data };
 };

@@ -1,8 +1,10 @@
-import { Image, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import { styles } from "../../StyleSheet";
 import useFetchData from "../api/FetchData";
+import { useNavigation } from "@react-navigation/native";
 
 export default CommunityPicker = ({ id }) => {
+  const navigation = useNavigation();
   const {
     loading,
     faliled,
@@ -25,14 +27,15 @@ export default CommunityPicker = ({ id }) => {
       style={[styles.wid70, styles.hei70, styles.aliIteCnt, styles.jusConCnt]}
     >
       {banner && (
-        <View
+        <Pressable
+          onPress={() => navigation.navigate("group", { id: id })}
           style={[
             styles.jusConCnt,
             styles.aliIteCnt,
             styles.hei100p,
             styles.wid100p,
             styles.borRad10,
-            { elevation: 10, backgroundColor: "white" },
+            { backgroundColor: "white" },
           ]}
         >
           <Image
@@ -46,10 +49,16 @@ export default CommunityPicker = ({ id }) => {
               { marginTop: 5 },
             ]}
           />
-          <Text style={[styles.fonSiz12, styles.texAliCnt]}>
+          <Text
+            numberOfLines={2}
+            style={[
+              styles.texAliCnt,
+              { overflow: "hidden", width: 50, fontSize: 10, height: 24 },
+            ]}
+          >
             {banner.data.name}
           </Text>
-        </View>
+        </Pressable>
       )}
     </View>
   );

@@ -1,19 +1,19 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Pressable } from "react-native";
-import YourFeed from "./YourFeed";
 import GroupsPage from "../CommunityGroup.jsx/GroupsPage";
+import Profile from "./Profile";
+
 const Stack = createNativeStackNavigator();
 
-export default CommunityHome = () => {
+export default ProfileHome = () => {
   return (
-    <Stack.Navigator initialRouteName="Your Feed">
+    <Stack.Navigator initialRouteName="user">
       <Stack.Screen
         options={{
           headerStyle: { backgroundColor: "#1F51FF" },
           headerTitleStyle: { color: "#ffffff" },
         }}
-        name="Your Feed"
-        component={YourFeed}
+        name="user"
+        component={Profile}
       />
       <Stack.Screen
         options={{

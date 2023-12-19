@@ -12,6 +12,8 @@ import { styles } from "./StyleSheet";
 import JobsHome from "./components/jobs/JobsHome";
 import InternshipsHome from "./components/internships/InternshipsHome";
 import CommunityHome from "./components/community/CommunityHome";
+import Profile from "./components/profile/Profile";
+import ProfileHome from "./components/profile/ProfileHome";
 const Tab = createBottomTabNavigator();
 export default function App() {
   return (
@@ -59,6 +61,7 @@ export default function App() {
           name="community"
           component={CommunityHome}
           options={{
+            headerShown: false,
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons
                 name="google-circles-communities"
@@ -68,18 +71,23 @@ export default function App() {
             ),
             headerRight: () => (
               <Pressable style={[styles.padHor4]}>
-                <EvilIcons name="search" size={26} color="blue" />
+                <EvilIcons name="search" size={26} color="#ffffff" />
               </Pressable>
             ),
+            headerStyle: { backgroundColor: "#1F51FF" },
+            headerTintColor: "#ffffff",
           }}
         />
         <Tab.Screen
           name="profile"
-          component={AllJobs}
+          component={ProfileHome}
           options={{
+            headerShown: false,
             tabBarIcon: ({ color }) => (
               <MaterialIcons name="account-circle" size={24} color={color} />
             ),
+            headerStyle: { backgroundColor: "#1F51FF" },
+            headerTintColor: "#ffffff",
           }}
         />
       </Tab.Navigator>
@@ -90,12 +98,4 @@ export default function App() {
       />
     </NavigationContainer>
   );
-}
-
-{
-  /* <View style={[styles.flex1, styles.posRel]}>
-<AllJobs />
-
-
-</View> */
 }

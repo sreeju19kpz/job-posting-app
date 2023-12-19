@@ -46,6 +46,9 @@ export const styles = StyleSheet.create({
   fleGro1: {
     flexGrow: 1,
   },
+  aliSelCnt: {
+    alignSelf: "center",
+  },
   aliIteCnt: {
     alignItems: "center",
   },
@@ -59,15 +62,20 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   jusConSpcAro: {
-    justifyContent:'space-around',
+    justifyContent: "space-around",
   },
-
+  jusConSpcBtw: {
+    justifyContent: "space-between",
+  },
   /* height */
   hei100p: {
     height: "100%",
   },
   hei100p: {
     height: "100%",
+  },
+  hei4: {
+    height: 4,
   },
   hei33: {
     height: 33,
@@ -76,7 +84,7 @@ export const styles = StyleSheet.create({
     height: 50,
   },
   hei70: {
-    height: 80,
+    height: 70,
   },
   hei150: {
     height: 150,
@@ -92,31 +100,53 @@ export const styles = StyleSheet.create({
   wid100p: {
     width: "100%",
   },
+  wid50p: {
+    width: "50%",
+  },
   maxWid400: {
     maxWidth: 400,
   },
   wid400: {
     width: 400,
   },
-  wid50: {
-    width: 50,
-  },
-  wid70: {
-    width: 70,
+  wid140: {
+    width: 140,
   },
   wid100: {
     width: 100,
   },
+  wid70: {
+    width: 70,
+  },
 
+  wid50: {
+    width: 50,
+  },
+  wid33: {
+    width: 33,
+  },
   /* padding */
   padVer1: {
     paddingVertical: 1,
+  },
+
+  padVer10: {
+    paddingVertical: 10,
   },
   padTop5: {
     paddingTop: 10,
   },
   padHor4: {
     paddingHorizontal: 8,
+  },
+  padHor10: {
+    paddingHorizontal: 10,
+  },
+  padHor20: {
+    paddingHorizontal: 20,
+  },
+  pad2: {
+    padding: 2,
   },
   pad10: {
     padding: 10,
@@ -148,8 +178,23 @@ export const styles = StyleSheet.create({
   bacColgreLig1: {
     backgroundColor: "rgba(21, 21, 21, 0.12)",
   },
-
+  bakColWhi: {
+    backgroundColor: "white",
+  },
+  bakColWhiP3: {
+    backgroundColor: "rgba(255, 255, 255, 0.3)",
+  },
+  bakColblap5: {
+    backgroundColor: "rgba(0,0,0,.5)",
+  },
+  bacColBlu: {
+    backgroundColor: "#1F51FF",
+  },
   /* font*/
+  fonColWhi: {
+    color: "white",
+  },
+
   fonColBla: {
     color: "black",
   },
@@ -178,8 +223,14 @@ export const styles = StyleSheet.create({
   fonWei700: {
     fontWeight: 700,
   },
+  fonWei500: {
+    fontWeight: 500,
+  },
   texAliCnt: {
     textAlign: "center",
+  },
+  linHig20: {
+    lineHeight: 20,
   },
 
   /* border */
@@ -198,13 +249,20 @@ export const styles = StyleSheet.create({
   borColBlaLigP1: {
     borderColor: "rgba(0,0,0,.1)",
   },
+
   borStySol: {
     borderStyle: "solid",
   },
   borRad10: { borderRadius: 10 },
+  borRad15: { borderRadius: 15 },
+  borRad20: { borderRadius: 20 },
+
   /* margin */
   marTop5: {
     marginTop: 5,
+  },
+  marVer5: {
+    marginVertical: 5,
   },
   marTop20: {
     marginTop: 20,
@@ -215,5 +273,8 @@ export const styles = StyleSheet.create({
   /* object */
   objFitCov: {
     objectFit: "cover",
+  },
+  traScaM1: {
+    transform: [{ scaleX: -1 }],
   },
 });
