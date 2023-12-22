@@ -4,17 +4,27 @@ import useFetchData from "../api/FetchData";
 import CommunityPicker from "../Elements/CommunityPicker";
 
 import AllCommunityPosts from "./AllCommunityPosts";
+import { useEffect } from "react";
+import { useGetAllCommunitiesMutation } from "../Features/community/communityApiSlice";
 
-export default YourFeed = ({ navigation }) => {
-  const {
+export default YourFeed = () => {
+  /*   const {
     loading: fajc, //fetching all joined communities
     faliled: fajcf, //fetching all joined communities failed
     data: communities,
   } = useFetchData({
     url: `users/65747efc58fcbea05ee7d085/communities`,
   });
+ */
+  const [getAllCommunities, { isLoading }] = useGetAllCommunitiesMutation();
+  useEffect(() => {
+    const getAllC = async () => {
+      const userData = await getAllCommunities().unwrap();
+    };
+    getAllC();
+  }, []);
 
-  if (fajc)
+  /*   if (fajc)
     return (
       <View>
         <Text>Loading</Text>
@@ -25,12 +35,12 @@ export default YourFeed = ({ navigation }) => {
       <View>
         <Text>faliled</Text>
       </View>
-    );
+    ); */
   return (
     <ScrollView
       style={[styles.wid100p, styles.flex1, { backgroundColor: "white" }]}
     >
-      <View style={[styles.pad20, styles.gap20, styles.flexDirRow]}>
+      {/*  <View style={[styles.pad20, styles.gap20, styles.flexDirRow]}>
         {communities &&
           communities.communities.map((item, index) => {
             return <CommunityPicker key={index} id={item} />;
@@ -41,7 +51,7 @@ export default YourFeed = ({ navigation }) => {
           communities.communities.map((item, index) => {
             return <AllCommunityPosts key={index} id={item} />;
           })}
-      </View>
+      </View> */}
     </ScrollView>
   );
 };
