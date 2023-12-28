@@ -1,43 +1,40 @@
 // likes and comments session
+import { useFocusEffect } from "@react-navigation/native";
 
 import { View, Text } from "react-native";
-import useFetchData from "../api/FetchData";
 import { styles } from "../../StyleSheet";
 import LikeButton from "../Elements/LikeButton";
-import useUpdateData from "../api/UpdateData";
-
 import CommentButton from "../Elements/CommentButton";
-export default LAndCS = ({ id }) => {
-  const { loading, faliled, data } = useFetchData({
-    url: `posts/${id}/likes/65747efc58fcbea05ee7d085`,
-  });
-  const {
-    updateData,
-    data: updatedData,
-    status,
-  } = useUpdateData({
-    url: `posts/${id}/likes/65747efc58fcbea05ee7d085`,
-  });
+import { useCallback, useEffect, useState } from "react";
+import {
+  useLikePostMutation,
+  useGetIsUserLikedPostMutation,
+} from "../Features/posts/postsApiSlice";
+import { useNavigation } from "@react-navigation/native";
 
-  async function update() {
-    await updateData({ userId: "65747efc58fcbea05ee7d085" });
-    if (status === 201 && updatedData) {
-    } else return;
-  }
-  if (loading)
-    return (
-      <View>
-        <Text>loading</Text>
-      </View>
-    );
-  if (faliled)
-    return (
-      <View>
-        <Text>failed</Text>
-      </View>
-    );
+export default LAndCS = ({ id, isLiked }) => {
+  const navigation = useNavigation();
+  const [likePost, { isLoading }] = useLikePostMutation();
+  const [getIsUserLikedPost, { isLoading: loadingIsLiked }] =
+    useGetIsUserLikedPostMutation();
+  const [liked, setLiked] = useState(); // user like
+
+  const getAllC = async () => {
+    const data = await likePost({ id: id }).unwrap();
+    data && setLiked(data?.data);
+  };
+  useFocusEffect(
+    useCallback(() => {
+      const refetch = async () => {
+        const data = await getIsUserLikedPost({ id: id }).unwrap();
+        data && setLiked(data.isLiked);
+      };
+      refetch();
+    }, [navigation])
+  );
+
   return (
-    <View style={[styles.wid100p, styles.hei70, styles.gap5]}>
+    <View style={[styles.wid100p, styles.gap5, styles.padVer10]}>
       <View
         style={[
           styles.wid100p,
@@ -46,13 +43,7 @@ export default LAndCS = ({ id }) => {
           styles.hei50,
         ]}
       >
-        <LikeButton
-          isLiked={
-            updatedData ? updatedData.isLiked : data ? data.isLiked : false
-          }
-          onClick={update}
-        />
-
+        <LikeButton isLiked={liked} onClick={getAllC} />
         <CommentButton id={id} />
       </View>
     </View>

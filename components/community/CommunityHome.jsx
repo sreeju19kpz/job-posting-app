@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Pressable } from "react-native";
 import YourFeed from "./YourFeed";
-import GroupsPage from "../CommunityGroup.jsx/GroupsPage";
+import GroupsPage from "./CommunityGroup.jsx/GroupsPage";
 const Stack = createNativeStackNavigator();
 
 export default CommunityHome = () => {

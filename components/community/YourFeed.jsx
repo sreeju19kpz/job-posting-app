@@ -7,7 +7,7 @@ const Tab = createMaterialTopTabNavigator();
 const YourFeed = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={Feed} />
+      <Tab.Screen name="Home" component={Feed}  />
       <Tab.Screen name="discover " component={Discover} />
     </Tab.Navigator>
   );

@@ -4,27 +4,29 @@ import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-export default Internship = ({ item }) => {
+import { useGetSingleInternhipMutation } from "../Features/internships/internshipApiSlice";
+import { useEffect, useState } from "react";
+
+export default Internship = ({ data }) => {
   const navigation = useNavigation();
   return (
-    <View style={[styles.wid100p, styles.maxWid400, { elevation: 100 }]}>
+    <View style={[styles.wid100p, styles.pad10]}>
       <View
         style={[
           styles.wid100p,
-
-          styles.bac2,
           styles.pad10,
           styles.gap20,
           styles.borStySol,
           styles.borColBlaLigP1,
           styles.borWid1,
           styles.borRad10,
+          styles.bakColWhi,
         ]}
       >
         <View style={[styles.wid100p, styles.gap5]}>
           <View style={[styles.wid100p]}>
             <Text style={[styles.fonSiz22, styles.fonWei900]}>
-              {item.title}
+              {data?.title}
             </Text>
           </View>
           <View
@@ -36,7 +38,7 @@ export default Internship = ({ item }) => {
             ]}
           >
             <Text style={[styles.fonSiz15, styles.fonColBlaLig1]}>
-              {item.companyName}
+              {data?.companyName}
             </Text>
           </View>
           <View
@@ -48,7 +50,7 @@ export default Internship = ({ item }) => {
             ]}
           >
             <AntDesign name="paperclip" size={14} color="black" />
-            <Text style={[styles.fonSiz15]}>{item.jobType}</Text>
+            <Text style={[styles.fonSiz15]}>{data?.jobType}</Text>
           </View>
           <View
             style={[
@@ -59,7 +61,7 @@ export default Internship = ({ item }) => {
             ]}
           >
             <Feather name="map-pin" size={13} color="black" />
-            <Text style={[styles.fonSiz15]}>{item.location}</Text>
+            <Text style={[styles.fonSiz15]}>{data?.location}</Text>
           </View>
           <View
             style={[
@@ -70,7 +72,7 @@ export default Internship = ({ item }) => {
             ]}
           >
             <AntDesign name="calendar" size={13} color="black" />
-            <Text style={[styles.fonSiz15]}>{item.experience}</Text>
+            <Text style={[styles.fonSiz15]}>{data?.experience}</Text>
           </View>
           <View
             style={[
@@ -81,13 +83,13 @@ export default Internship = ({ item }) => {
             ]}
           >
             <Fontisto name="inr" size={12} color="black" />
-            <Text style={[styles.fonSiz15]}>{item.stipend}</Text>
+            <Text style={[styles.fonSiz15]}>{data?.stipend}</Text>
           </View>
           <View style={[styles.flexDirRow, styles.gap10]}>
-            {item.skills.map((item) => {
+            {data?.skills.map((item, index) => {
               return (
                 <View
-                  key={item}
+                  key={index}
                   style={[
                     styles.bacColgreLig1,
                     styles.padHor4,
@@ -123,7 +125,7 @@ export default Internship = ({ item }) => {
                 styles.borColBlaLigP1,
                 styles.borWid1,
               ]}
-              onPress={() => navigation.navigate("Details", { id: item._id })}
+              onPress={() => navigation.navigate("Details", { id: data?._id })}
             >
               <Text style={[styles.fonColIndBlu]}>details</Text>
             </Pressable>

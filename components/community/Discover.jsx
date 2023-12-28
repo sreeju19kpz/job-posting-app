@@ -1,25 +1,35 @@
 import { View, Text, ScrollView } from "react-native";
 import React from "react";
-import useFetchData from "../api/FetchData";
 import DiscoverItem from "../Elements/DiscoverItem";
 import { styles } from "../../StyleSheet";
+import { useEffect, useState } from "react";
+import { useDiscoverCommunitiesMutation } from "../Features/community/communityApiSlice";
 
 export default Discover = () => {
-  const {
-    loading,
-    faliled,
-    data: community,
-  } = useFetchData({ url: `communities/newto/65747efc58fcbea05ee7d085` });
-
+  const [discoverCommunities, { isLoading }] = useDiscoverCommunitiesMutation();
+  const [data, setData] = useState(); //discover new communities
+  useEffect(() => {
+    const getAllC = async () => {
+      const data = await discoverCommunities().unwrap();
+      data && setData(data);
+    };
+    getAllC();
+  }, []);
+  if (isLoading)
+    return (
+      <View>
+        <Text>loading</Text>
+      </View>
+    );
   return (
     <ScrollView style={[styles.flex1, styles.gap20, styles.bakColWhi]}>
       <View style={[styles.wid100p, styles.hei100p]}>
-        {community && community.id.length > 0 ? (
+        {data && data.length > 0 ? (
           <View
             style={[styles.gap20, styles.wid100p, styles.hei100p, styles.pad10]}
           >
-            {community.id.map((item, index) => {
-              return <DiscoverItem id={item} key={index} />;
+            {data.map((item, index) => {
+              return <DiscoverItem item={item} key={index} />;
             })}
           </View>
         ) : (

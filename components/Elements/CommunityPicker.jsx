@@ -1,34 +1,17 @@
 import { Image, Pressable, Text, View } from "react-native";
 import { styles } from "../../StyleSheet";
-import useFetchData from "../api/FetchData";
 import { useNavigation } from "@react-navigation/native";
-
-export default CommunityPicker = ({ id }) => {
+import thumbnail from "../../assets/thumbnail.png";
+export default CommunityPicker = ({ item }) => {
   const navigation = useNavigation();
-  const {
-    loading,
-    faliled,
-    data: banner,
-  } = useFetchData({ url: `communities/${id}/banner` });
-  if (loading)
-    return (
-      <View>
-        <Text>loading</Text>
-      </View>
-    );
-  if (faliled)
-    return (
-      <View>
-        <Text>faliled</Text>
-      </View>
-    );
+
   return (
     <View
       style={[styles.wid70, styles.hei70, styles.aliIteCnt, styles.jusConCnt]}
     >
-      {banner && (
+      {
         <Pressable
-          onPress={() => navigation.navigate("group", { id: id })}
+          onPress={() => navigation.navigate("group", { id: item?.id })}
           style={[
             styles.jusConCnt,
             styles.aliIteCnt,
@@ -39,7 +22,7 @@ export default CommunityPicker = ({ id }) => {
           ]}
         >
           <Image
-            source={{ uri: banner.data.thumbnail }}
+            source={item?.thumbnail ? { uri: item?.thumbnail } : thumbnail}
             style={[
               styles.hei50,
               styles.wid50,
@@ -56,10 +39,10 @@ export default CommunityPicker = ({ id }) => {
               { overflow: "hidden", width: 50, fontSize: 10, height: 24 },
             ]}
           >
-            {banner.data.name}
+            {item?.name}
           </Text>
         </Pressable>
-      )}
+      }
     </View>
   );
 };

@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import GroupsPage from "../CommunityGroup.jsx/GroupsPage";
+
 import Profile from "./Profile";
+import GroupsPage from "../community/CommunityGroup.jsx/GroupsPage";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,3 +28,4 @@ export default ProfileHome = () => {
     </Stack.Navigator>
   );
 };
+

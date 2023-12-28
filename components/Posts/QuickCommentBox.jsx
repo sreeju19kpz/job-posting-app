@@ -11,7 +11,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 const { height: SCREEN_HEIGHT } = Dimensions.get("window");
-
+console.log(SCREEN_HEIGHT);
 const QuickCommentBox = React.forwardRef(({ End, children }, ref) => {
   const translateY = useSharedValue(0);
   const context = useSharedValue({ y: 0 });
@@ -33,17 +33,17 @@ const QuickCommentBox = React.forwardRef(({ End, children }, ref) => {
       translateY.value = Math.max(translateY.value, -SCREEN_HEIGHT);
     })
     .onEnd(() => {
-      if (translateY.value > -SCREEN_HEIGHT / 2) {
+      if (translateY.value > -SCREEN_HEIGHT / 1.4) {
         scrollTo(0);
         runOnJS(close)();
       }
-      if (translateY.value < -SCREEN_HEIGHT / 1.6) {
+      if (translateY.value <= -SCREEN_HEIGHT / 1.4) {
         scrollTo(-SCREEN_HEIGHT);
       }
     });
 
   useEffect(() => {
-    scrollTo(-SCREEN_HEIGHT / 1.7);
+    scrollTo(-SCREEN_HEIGHT);
   }, []);
   const rBottomSheetStyle = useAnimatedStyle(() => {
     const borderRadius = interpolate(
@@ -68,7 +68,7 @@ const QuickCommentBox = React.forwardRef(({ End, children }, ref) => {
           styles.borRad20,
           rBottomSheetStyle,
           {
-            height: SCREEN_HEIGHT,
+            height: "100%",
             top: SCREEN_HEIGHT,
           },
         ]}

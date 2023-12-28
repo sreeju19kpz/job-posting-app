@@ -1,57 +1,46 @@
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import { styles } from "../../StyleSheet";
-import useFetchData from "../api/FetchData";
 import CommunityPicker from "../Elements/CommunityPicker";
 
 import AllCommunityPosts from "./AllCommunityPosts";
-import { useEffect } from "react";
-import { useGetAllCommunitiesMutation } from "../Features/community/communityApiSlice";
+import { useEffect, useState } from "react";
+import { useGetAllJoinedCommunitiesMutation } from "../Features/community/communityApiSlice";
+import AllPostsForUser from "./AllPostsForUser";
+import CreatePost from "../Posts/CreatePost";
 
 export default YourFeed = () => {
-  /*   const {
-    loading: fajc, //fetching all joined communities
-    faliled: fajcf, //fetching all joined communities failed
-    data: communities,
-  } = useFetchData({
-    url: `users/65747efc58fcbea05ee7d085/communities`,
-  });
- */
-  const [getAllCommunities, { isLoading }] = useGetAllCommunitiesMutation();
+  const [getAllJoinedCommunities, { isLoading }] =
+    useGetAllJoinedCommunitiesMutation();
+  const [cP, setCp] = useState(); //community picker
   useEffect(() => {
     const getAllC = async () => {
-      const userData = await getAllCommunities().unwrap();
+      const data = await getAllJoinedCommunities().unwrap();
+      data && setCp(data);
     };
     getAllC();
   }, []);
-
-  /*   if (fajc)
+  if (isLoading)
     return (
       <View>
-        <Text>Loading</Text>
+        <Text>loading</Text>
       </View>
     );
-  if (fajcf)
-    return (
-      <View>
-        <Text>faliled</Text>
-      </View>
-    ); */
   return (
     <ScrollView
+      keyboardShouldPersistTaps="always"
       style={[styles.wid100p, styles.flex1, { backgroundColor: "white" }]}
     >
-      {/*  <View style={[styles.pad20, styles.gap20, styles.flexDirRow]}>
-        {communities &&
-          communities.communities.map((item, index) => {
-            return <CommunityPicker key={index} id={item} />;
-          })}
+      <View style={[styles.wid100p, styles.pad10]}>
+        <CreatePost type={"USER_POST"} />
+      </View>
+      <View style={[styles.pad20, styles.gap20, styles.flexDirRow]}>
+        {cP?.map((item, index) => {
+          return <CommunityPicker key={index} item={item} />;
+        })}
       </View>
       <View>
-        {communities &&
-          communities.communities.map((item, index) => {
-            return <AllCommunityPosts key={index} id={item} />;
-          })}
-      </View> */}
+        <AllPostsForUser />
+      </View>
     </ScrollView>
   );
 };

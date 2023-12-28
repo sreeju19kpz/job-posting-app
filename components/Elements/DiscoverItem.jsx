@@ -1,45 +1,44 @@
 import { View, Text, ImageBackground, Pressable, Button } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { styles } from "../../StyleSheet";
-import useFetchData from "../api/FetchData";
-import useUpdateData from "../api/UpdateData";
+import { useFocusEffect } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
+import thumbnail from "../../assets/thumbnail.png";
+import {
+  useGetIsUserJoinedCommunityMutation,
+  useJoinCommunityMutation,
+} from "../Features/community/communityApiSlice";
 
-export default DiscoverItem = ({ id }) => {
-  const [state, setState] = useState(false);
+export default DiscoverItem = ({ item }) => {
+  const [state, setState] = useState();
   const navigation = useNavigation();
-  const {
-    loading,
-    faliled,
-    data: community,
-  } = useFetchData({ url: `communities/${id}/banner` });
+  const [getIsUserJoinedCommunity, { isLoading }] =
+    useGetIsUserJoinedCommunityMutation();
+  const [joinCommunity, { isLoading: joining }] = useJoinCommunityMutation();
 
-  const {
-    updateData,
-    data: updatedData,
-    loading: updating,
-    faliled: updateFailed,
-    status,
-  } = useUpdateData({ url: `communities/${id}/join` });
-  useEffect(() => {
-    community && setState(community.data.isMember);
-  }, [community]);
-  useEffect(() => {
-    status === 201 && setState(updatedData.isMember);
-  }, [updatedData]);
+  useFocusEffect(
+    useCallback(() => {
+      const refetch = async () => {
+        const data = await getIsUserJoinedCommunity({ id: item.id }).unwrap();
+        data && setState(data.isMember);
+      };
+      refetch();
+    }, [navigation])
+  );
 
-  const update = async () => {
-    await updateData({ userId: "65747efc58fcbea05ee7d085" });
+  const joinGroup = async () => {
+    const data = await joinCommunity({ id: item.id }).unwrap();
+    data && setState(data.isMember);
   };
 
   return (
     <View style={[styles.wid100p, styles.hei70]}>
       <Pressable
-        onPress={() => navigation.navigate("group", { id: id })}
+        onPress={() => navigation.navigate("group", { id: item?.id })}
         style={[styles.wid100p, styles.hei70]}
       >
         <ImageBackground
-          source={{ uri: community?.data?.thumbnail }}
+          source={item?.thumbnail ? { uri: item?.thumbnail } : thumbnail}
           style={[
             styles.wid100p,
             styles.hei70,
@@ -72,11 +71,11 @@ export default DiscoverItem = ({ id }) => {
                 { borderRadius: 5, paddingBottom: 3 },
               ]}
             >
-              {community?.data?.name}
+              {item?.name}
             </Text>
           </View>
           <View>
-            <Button title={state ? "leave " : "join "} onPress={update} />
+            <Button onPress={joinGroup} title={state ? "leave " : "join "} />
           </View>
         </View>
       </Pressable>

@@ -55,8 +55,14 @@ export const styles = StyleSheet.create({
   aliIteFleEnd: {
     alignItems: "flex-end",
   },
+  aliIteFleStr: {
+    alignItems: "flex-start",
+  },
   JusConFleEnd: {
     justifyContent: "flex-end",
+  },
+  JusConFleStr: {
+    justifyContent: "flex-start",
   },
   jusConCnt: {
     justifyContent: "center",
@@ -92,7 +98,9 @@ export const styles = StyleSheet.create({
   hei300: {
     height: 300,
   },
-
+  minHei50: {
+    minHeight: 50,
+  },
   /* width */
   wid25p: {
     width: "25%",
@@ -132,6 +140,9 @@ export const styles = StyleSheet.create({
 
   padVer10: {
     paddingVertical: 10,
+  },
+  padVer5: {
+    paddingVertical: 5,
   },
   padTop5: {
     paddingTop: 10,
@@ -247,9 +258,11 @@ export const styles = StyleSheet.create({
     borderColor: "rgba(0,0,0,.5)",
   },
   borColBlaLigP1: {
-    borderColor: "rgba(0,0,0,.1)",
+    borderColor: "rgba(0,0,0,.2)",
   },
-
+  borColBlu1: {
+    borderColor: "#1F51FF",
+  },
   borStySol: {
     borderStyle: "solid",
   },

@@ -5,28 +5,34 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
-import useFetchData from "../api/FetchData";
+
+import { useGetInternshipDetailsMutation } from "../Features/internships/internshipApiSlice";
+import { useEffect, useState } from "react";
 
 export default InternshipDetails = ({ route }) => {
   const { id } = route.params;
-  const { loading, faliled, data } = useFetchData({
-    url: `internships/${id}`,
-  });
-
-  return loading ? (
-    <View>
-      <Text>loading</Text>
-    </View>
-  ) : faliled ? (
-    <View>
-      <Text>faliled</Text>
-    </View>
-  ) : (
+  const [getInternshipDetails, { isLoading }] =
+    useGetInternshipDetailsMutation();
+  const [data, setData] = useState();
+  useEffect(() => {
+    const getJobs = async () => {
+      const data = await getInternshipDetails({ id: id }).unwrap();
+      data && setData(data);
+    };
+    getJobs();
+  }, []);
+  if (isLoading)
+    return (
+      <View>
+        <Text>loading</Text>
+      </View>
+    );
+  return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      style={[styles.wid100p, styles.pad10, styles.posRel]}
+      style={[styles.wid100p, styles.bakColWhi, styles.pad10, styles.posRel]}
     >
-      {data && (
+      {
         <View
           style={[
             styles.wid100p,
@@ -37,7 +43,7 @@ export default InternshipDetails = ({ route }) => {
           <View style={[styles.wid100p, styles.gap10]}>
             <View style={[styles.gap20]}>
               <Text style={[styles.fonSiz22, styles.fonWei900]}>
-                {data.internship.title}
+                {data?.title}
               </Text>
               <View style={[styles.gap5]}>
                 <View
@@ -50,7 +56,7 @@ export default InternshipDetails = ({ route }) => {
                     color="black"
                   />
                   <Text style={[styles.fonSiz15, styles.fonColBlaLig1]}>
-                    {data.internship.companyName}
+                    {data?.companyName}
                   </Text>
                 </View>
                 <View
@@ -62,9 +68,7 @@ export default InternshipDetails = ({ route }) => {
                     size={11}
                     color="black"
                   />
-                  <Text style={[styles.fonSiz15]}>
-                    {data.internship.location}
-                  </Text>
+                  <Text style={[styles.fonSiz15]}>{data?.location}</Text>
                 </View>
               </View>
             </View>
@@ -83,7 +87,7 @@ export default InternshipDetails = ({ route }) => {
               </Text>
             </View>
             <View style={[styles.flexDirRow, styles.gap10, styles.marBot20]}>
-              {data.internship.skills.map((item, index) => {
+              {data?.skills.map((item, index) => {
                 return (
                   <View
                     key={index}
@@ -122,7 +126,7 @@ export default InternshipDetails = ({ route }) => {
                   color="black"
                 />
                 <Text style={[styles.fonWei700]}> salary :</Text>
-                <Text>{data.internship.salary}</Text>
+                <Text>{data?.salary}</Text>
               </View>
               <View style={[styles.padVer1, styles.flexDirRow, styles.gap10]}>
                 <AntDesign
@@ -132,7 +136,7 @@ export default InternshipDetails = ({ route }) => {
                   color="black"
                 />
                 <Text style={[styles.fonWei700]}>internship Type :</Text>
-                <Text>{data.internship.jobType}</Text>
+                <Text>{data?.jobType}</Text>
               </View>
               <View style={[styles.padVer1, styles.flexDirRow, styles.gap10]}>
                 <AntDesign
@@ -142,7 +146,7 @@ export default InternshipDetails = ({ route }) => {
                   color="black"
                 />
                 <Text style={[styles.fonWei700]}>experience required:</Text>
-                <Text>{data.internship.experience}</Text>
+                <Text>{data?.experience}</Text>
               </View>
               <View style={[styles.padVer1, styles.flexDirRow, styles.gap10]}>
                 <AntDesign
@@ -152,7 +156,7 @@ export default InternshipDetails = ({ route }) => {
                   color="black"
                 />
                 <Text style={[styles.fonWei700]}>seniority :</Text>
-                <Text>{data.internship.duration}</Text>
+                <Text>{data?.duration}</Text>
               </View>
             </View>
           </View>
@@ -170,7 +174,7 @@ export default InternshipDetails = ({ route }) => {
               </Text>
             </View>
             <View style={[styles.gap10, styles.marBot20]}>
-              {data.internship.description.map((item, index) => {
+              {data?.description.map((item, index) => {
                 return (
                   <View
                     key={index}
@@ -197,7 +201,7 @@ export default InternshipDetails = ({ route }) => {
               </Text>
             </View>
             <View style={[styles.gap10, styles.marBot20]}>
-              {data.internship.skillsDescription.map((item, index) => {
+              {data?.skillsDescription.map((item, index) => {
                 return (
                   <View
                     key={index}
@@ -214,10 +218,10 @@ export default InternshipDetails = ({ route }) => {
             <Text style={[styles.fonSiz18, styles.fonWei700]}>
               No. of openings
             </Text>
-            <Text style={[styles.fonWei700]}>{data.internship.slots}</Text>
+            <Text style={[styles.fonWei700]}>{data?.slots}</Text>
           </View>
         </View>
-      )}
+      }
       <View style={[styles.hei33, styles.wid100p, { marginBottom: 20 }]}>
         <Button title="Apply" />
       </View>

@@ -21,6 +21,7 @@ export default LikeButton = ({ onClick, isLiked }) => {
           styles.aliIteCnt,
           styles.flexDirRow,
           styles.gap20,
+          styles.hei100p,
         ]}
       >
         <View style={[styles.traScaM1]}>

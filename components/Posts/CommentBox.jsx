@@ -1,32 +1,56 @@
-import { Text, View } from "react-native";
-import React from "react";
-import useFetchData from "../api/FetchData";
+import { ScrollView } from "react-native";
+import React, { useEffect, useState } from "react";
 import SingleComment from "./SingleComment";
+import {
+  useGetCommentsMutation,
+  usePostCommentMutation,
+} from "../Features/comments/commentApiSlice";
+import SingleCommentSkeleton from "./SingleCommentSkeleton";
+import TypeComment from "./TypeComment";
 
 const CommentBox = ({ postId }) => {
-  const { loading, faliled, data } = useFetchData({
-    url: `posts/${postId}/comments`,
-  });
+  const [myComments, setMyComments] = useState();
+  const [comments, setComments] = useState([]);
+  const [getComments, { isLoading }] = useGetCommentsMutation();
+  const [postComment, { isLoading: commenting }] = usePostCommentMutation();
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await getComments({ id: postId }).unwrap();
+      data && setComments(data);
+    };
+    fetch();
+  }, []);
+  const times = 10;
+  const postC = async (cmnt) => {
+    const data = await postComment({
+      postId: postId,
+      comment: cmnt.trim(),
+    }).unwrap();
+    data && setMyComments((prev) => (prev ? [data, ...prev] : [data]));
+  };
 
-  if (loading)
+  if (isLoading)
     return (
-      <View>
-        <Text>loading</Text>
-      </View>
+      <>
+        {Array.from({ length: 10 }).map((_, i) => (
+          <SingleCommentSkeleton key={i} />
+        ))}
+      </>
     );
-  if (faliled)
-    return (
-      <View>
-        <Text>failed</Text>
-      </View>
-    );
+
   return (
-    <View>
-      {data &&
-        data.data.map((item, index) => {
+    <>
+      <ScrollView keyboardShouldPersistTaps={"allways"}>
+        {myComments?.map((item, index) => {
           return <SingleComment key={index} comment={item} />;
         })}
-    </View>
+        {comments?.map((item, index) => {
+          return <SingleComment key={index} comment={item} />;
+        })}
+      </ScrollView>
+
+      <TypeComment onClick={(data) => postC(data)} />
+    </>
   );
 };
 

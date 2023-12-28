@@ -1,65 +1,62 @@
 import { Pressable, Text, View } from "react-native";
-import useFetchData from "../api/FetchData";
 import Author from "./Author";
 import Community from "./Community";
 import { styles } from "../../StyleSheet";
 import { AntDesign } from "@expo/vector-icons";
 import LAndCS from "./LAndCS";
-import { useState } from "react";
+import { useRoute } from "@react-navigation/native";
 
-export default PostBanner = ({ postId }) => {
- 
-  const {
-    loading: postLoading,
-    faliled: postNotFound,
-    data: postData,
-  } = useFetchData({ url: `posts/${postId}/banner` });
-
-  if (postLoading)
-    return (
-      <View>
-        <Text>aa</Text>
-      </View>
-    );
-  if (postNotFound)
-    return (
-      <View>
-        <Text>aa</Text>
-      </View>
-    );
+export default PostBanner = ({ post }) => {
+  const route = useRoute();
   return (
     <View
       style={[
         styles.wid100p,
         styles.maxWid400,
-        ,
         styles.borWid1,
         styles.borColBlaLigP1,
         styles.borRad10,
+        styles.bakColWhi,
       ]}
     >
-      {postData && (
-        <View style={[styles.wid100p, styles.pad20, styles.gap10]}>
-          <View style={[styles.flexDirRow, styles.wid100p]}>
-            <Author id={postData.data.authorId} />
-            <View style={[styles.aliIteCnt, styles.jusConCnt]}>
-              <AntDesign
-                style={{ marginBottom: 13 }}
-                name="caretright"
-                size={10}
-                color="black"
+      <View style={[styles.wid100p, styles.gap10, styles.jusConSpcAro]}>
+        <View
+          style={[
+            styles.flexDirRow,
+            styles.wid100p,
+            styles.padHor20,
+            styles.padVer10,
+          ]}
+        >
+          <Author
+            name={post?.authorId?.name}
+            id={post?.authorId?._id}
+            dp={post?.authorId?.dp}
+          />
+          {post?.type === "COMMUNITY_POST" && route.name !== "group" && (
+            <>
+              <View style={[styles.aliIteCnt, styles.jusConCnt]}>
+                <AntDesign
+                  style={{ marginBottom: 13 }}
+                  name="caretright"
+                  size={10}
+                  color="black"
+                />
+              </View>
+              <Community
+                name={post?.communityId?.name}
+                id={post?.communityId?._id}
               />
-            </View>
-            <Community id={postData.data.communityId} />
-          </View>
-          <View>
-            <Text style={[styles.fonSiz18, { lineHeight: 30 }]}>
-              {postData.data.description}
-            </Text>
-          </View>
-          <LAndCS id={postData.data._id} />
+            </>
+          )}
         </View>
-      )}
+        <View style={[styles.padHor20]}>
+          <Text style={[styles.fonSiz18, { lineHeight: 30 }]}>
+            {post?.description}
+          </Text>
+        </View>
+        <LAndCS id={post?._id} />
+      </View>
     </View>
   );
 };
