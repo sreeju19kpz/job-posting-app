@@ -134,7 +134,7 @@ export default Job = ({ item }) => {
             </Pressable>
           </View>
           <View style={[styles.wid100]}>
-            {/*    <ApplyButton jobId={data?._id} /> */}
+            <ApplyButton jobId={item?._id} />
           </View>
         </View>
       </View>

@@ -10,12 +10,14 @@ import {
 } from "../../Features/community/communityApiSlice";
 import thumbnail from "../../../assets/thumbnail.png";
 import CreatePost from "../../Posts/CreatePost";
+import PostBanner from "../../Posts/PostBanner";
 const GroupsPage = ({ route, navigation }) => {
   const { id } = route.params;
 
   const [getSingleCommunity, { isLoading }] = useGetSingleCommunityMutation();
   const [joinCommunity, { isLoading: joining }] = useJoinCommunityMutation();
   const [data, setData] = useState(); // communities
+  const [myPosts, setMyposts] = useState();
   // navigation.setOptions({ title: "New Title" });
   useEffect(() => {
     const getAllC = async () => {
@@ -24,6 +26,10 @@ const GroupsPage = ({ route, navigation }) => {
     };
     getAllC();
   }, []);
+  const addMyPosts = (post) => {
+    setMyposts((prev) => (prev ? [post, ...prev] : [post]));
+  };
+
   const join = async () => {
     const data = await joinCommunity({ id: id }).unwrap();
     data &&
@@ -32,7 +38,6 @@ const GroupsPage = ({ route, navigation }) => {
         isMember: data.isMember,
       }));
   };
-
   if (isLoading)
     return (
       <View>
@@ -94,7 +99,14 @@ const GroupsPage = ({ route, navigation }) => {
                 styles.gap10,
               ]}
             >
-              <CreatePost communityId={id} type={"COMMUNITY_POST"} />
+              <CreatePost
+                communityId={id}
+                type={"COMMUNITY_POST"}
+                setMypost={(data) => addMyPosts(data)}
+              />
+              {myPosts?.map((post, i) => {
+                return <PostBanner key={i} post={post} />;
+              })}
               <AllCommunityPosts id={id} />
             </View>
           )}

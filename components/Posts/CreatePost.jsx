@@ -9,16 +9,17 @@ import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useCreatePostMutation } from "../Features/posts/postsApiSlice";
 
-export default CreatePost = ({ type, communityId }) => {
+export default CreatePost = ({ type, communityId, setMypost }) => {
   const [description, setDescription] = useState();
   const [state, setState] = useState(false);
   const [createPost, { isLoading }] = useCreatePostMutation();
   const post = async () => {
-    await createPost({
+    const data = await createPost({
       type: type,
       communityId: communityId,
       description: description,
     });
+    data && setMypost(data.data);
     setDescription("");
     setState(() => !state);
   };

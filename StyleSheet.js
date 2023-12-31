@@ -117,9 +117,10 @@ export const styles = StyleSheet.create({
   wid400: {
     width: 400,
   },
-  wid140: {
-    width: 140,
+  wid200: {
+    width: 200,
   },
+
   wid100: {
     width: 100,
   },
@@ -129,6 +130,9 @@ export const styles = StyleSheet.create({
 
   wid50: {
     width: 50,
+  },
+  wid140: {
+    width: 140,
   },
   wid33: {
     width: 33,

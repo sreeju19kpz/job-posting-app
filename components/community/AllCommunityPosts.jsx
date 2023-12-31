@@ -3,6 +3,7 @@ import PostBanner from "../Posts/PostBanner";
 import { styles } from "../../StyleSheet";
 import { useGetAllPostsFromCommunityMutation } from "../Features/posts/postsApiSlice";
 import { useEffect, useState } from "react";
+import PostBannerSkeleton from "../Posts/PostBannerSkeleton";
 
 export default AllCommunityPosts = ({ id }) => {
   const [getAllPostsFromCommunity, { isLoading }] =
@@ -17,12 +18,15 @@ export default AllCommunityPosts = ({ id }) => {
     getAllC();
   }, []);
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <View>
-        <Text>loading</Text>
+      <View style={[styles.gap10]}>
+        {Array.from({ length: 3 }).map((_, i) => {
+          return <PostBannerSkeleton key={i} />;
+        })}
       </View>
     );
+  }
 
   return (
     <View style={[styles.wid100p, styles.aliIteCnt, styles.gap10]}>

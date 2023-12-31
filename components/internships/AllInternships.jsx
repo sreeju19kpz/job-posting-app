@@ -15,13 +15,15 @@ export default AllInternships = () => {
     };
     getJobs();
   }, []);
-  if (isLoading) {
+  if (isLoading || data === undefined) {
     return (
-      <>
+      <View
+        style={[styles.wid100p, styles.flex1, styles.bakColWhi, styles.flex1]}
+      >
         {Array.from({ length: 3 }).map((_, i) => {
           return <JISkeleton key={i} />;
         })}
-      </>
+      </View>
     );
   }
   return (

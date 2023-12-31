@@ -5,7 +5,12 @@ import Register from "../loginPage/Register";
 const Stack = createNativeStackNavigator();
 export default Authentication = () => {
   return (
-    <Stack.Navigator initialRouteName="login">
+    <Stack.Navigator
+      screenOptions={{
+        animation: "none",
+      }}
+      initialRouteName="login"
+    >
       <Stack.Screen
         options={{
           headerStyle: { backgroundColor: "#1F51FF" },
@@ -16,11 +21,12 @@ export default Authentication = () => {
       />
       <Stack.Screen
         options={{
+          headerBackVisible: false,
           headerStyle: { backgroundColor: "#1F51FF" },
           headerTitleStyle: { color: "#ffffff" },
           headerTintColor: "#ffffff",
         }}
-        name="signup"
+        name="register"
         component={Register}
       />
     </Stack.Navigator>

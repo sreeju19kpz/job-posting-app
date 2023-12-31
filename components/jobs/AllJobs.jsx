@@ -16,12 +16,26 @@ export default AllJobs = () => {
     getJobs();
   }, []);
 
-  if (isLoading) {
+  if (isLoading || data === undefined) {
     return (
       <>
-        {Array.from({ length: 3 }).map((_, i) => {
-          return <JISkeleton key={i} />;
-        })}
+        <View
+          style={[
+            styles.wid100p,
+            styles.flex1,
+            styles.bakColWhi,
+            {
+              paddingTop:
+                Platform.OS === "android" ? StatusBar.currentHeight : 0,
+            },
+          ]}
+        >
+          <View style={[styles.flex1, styles.bakColWhi]}>
+            {Array.from({ length: 3 }).map((_, i) => {
+              return <JISkeleton key={i} />;
+            })}
+          </View>
+        </View>
       </>
     );
   }
